@@ -1,21 +1,52 @@
+# CGPA-Vision-App 🎓📊
 
-# React + Vite
+[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-blue)](https://cgpa-vision-app-souravbiswas35.vercel.app/)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**CGPAVision** is a modern web application that allows UIU students to **calculate, visualize, and track their academic CGPA** efficiently. Built with **React + Vite + TailwindCSS**, it provides a clean, fast, and responsive interface for academic performance tracking.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live Demo
 
-## React Compiler
+You can access the live app here:  
+🔗 [CGPA-Vision-App on Vercel](https://cgpa-vision-app-souravbiswas35.vercel.app/)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🖼 Screenshot
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Here’s a glimpse of the app interface:
 
-# CGPA-Vision-App
-CGPAVision: A web app to calculate, visualize, and track academic CGPA efficiently.
+<p align="center">
+  <img src="screenshots/screenshot.png" alt="CGPAVision Screenshot" width="700"/>
+</p>
 
+---
+
+## 🚀 Features
+
+- **CGPA Calculator:** Quickly calculate your semester-wise CGPA.
+- **Visualization:** Interactive charts and graphs to visualize academic performance.
+- **History Tracking:** Keep track of past semesters and CGPA progression.
+- **Responsive Design:** Works seamlessly on mobile, tablet, and desktop.
+- **Professional UI:** Inspired by UIU design aesthetics with Poppins & Inter fonts.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React 18 + Vite
+- **Styling:** Tailwind CSS
+- **Charts & Graphs:** Chart.js / Recharts (if used)
+- **Deployment:** Vercel
+- **Fonts:** Google Fonts – Poppins & Inter
+
+---
+
+## ⚡ Installation & Setup
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/souravbiswas35/CGPA-Vision-App.git
+cd CGPA-Vision-App
