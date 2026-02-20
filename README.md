@@ -13,13 +13,56 @@ You can access the live app here:
 
 ---
 
-## 🖼 Screenshot
+## 🖼 Pre-View
 
 Here’s a glimpse of the app interface:
 
 <p align="center">
   <img src="screenshots/screenshot.png" alt="CGPAVision Screenshot" width="700"/>
 </p>
+
+
+---
+
+## ▶️ Run Locally (VS Code Terminal)
+
+Follow these steps to run the project on your computer:
+
+1. **Open project folder in VS Code**
+
+```
+File → Open Folder → Select CGPA-Vision-App
+```
+
+2. **Open Terminal in VS Code**
+
+3. **Install dependencies**
+
+```bash
+npm install
+```
+
+4. **Start development server**
+
+```bash
+npm run dev
+```
+
+5. **Open in browser**
+
+After running, terminal will show something like:
+
+```
+Local: http://localhost:5173/
+```
+
+Open that link in your browser.
+
+#### 🛑 Stop Server
+Press:
+```
+Ctrl + C
+```
 
 ---
 
