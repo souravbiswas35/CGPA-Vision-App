@@ -181,13 +181,15 @@ const AnimatedProgress = ({ value, isDark, showChancellorsList }) => {
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
   
   return (
-    <div className="relative w-52 h-52 mx-auto flex items-center justify-center">
+    <div className="relative w-40 h-40 sm:w-52 sm:h-52 mx-auto flex items-center justify-center">
       {showChancellorsList && (
-        <div className="absolute -top-8 left-1/2 -translate-x-1/2 z-20">
-          <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white text-xs font-bold shadow-lg animate-bounce"
+        <div className="absolute -top-6 sm:-top-8 left-1/2 -translate-x-1/2 z-20">
+          <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white text-xs font-bold shadow-lg animate-bounce"
                style={{ animationDuration: '2s' }}>
-            <Award size={14} />
-            Chancellor's List
+            <Award size={12} className="sm:block hidden" />
+            <Award size={10} className="sm:hidden" />
+            <span className="hidden sm:inline">Chancellor's List</span>
+            <span className="sm:hidden">Dean's List</span>
           </div>
         </div>
       )}
@@ -228,15 +230,15 @@ const AnimatedProgress = ({ value, isDark, showChancellorsList }) => {
       </svg>
       
       <div className="relative z-10 flex flex-col items-center justify-center">
-        <div className={`text-5xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}
+        <div className={`text-3xl sm:text-5xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}
              style={{ color: value !== null ? info.color : '' }}>
           {value !== null ? animatedValue.toFixed(2) : '—'}
         </div>
-        <div className={`text-sm font-medium mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+        <div className={`text-xs sm:text-sm font-medium mt-1 sm:mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
           / 4.00
         </div>
         {value !== null && (
-          <div className="mt-3 px-4 py-1.5 rounded-full text-xs font-bold animate-bounce"
+          <div className="mt-1.5 sm:mt-3 px-3 sm:px-4 py-0.5 sm:py-1.5 rounded-full text-xs font-bold animate-bounce"
                style={{ 
                  backgroundColor: `${info.color}20`, 
                  color: info.color,
@@ -255,7 +257,7 @@ const CourseCard = ({ course, index, onUpdate, onRemove, totalCount, isRetake = 
   const selectedGrade = GRADE_SCALE.find(g => g.point === parseFloat(isRetake ? course.newGrade : course.grade));
   
   return (
-    <div className={`group relative flex flex-row items-center gap-3 sm:gap-4 p-4 rounded-xl border-2 transition-all duration-300 
+    <div className={`group relative flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 lg:gap-4 p-3 sm:p-4 rounded-xl border-2 transition-all duration-300 
                     hover:scale-[1.01] ${
       isDark 
         ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600' 
@@ -279,24 +281,24 @@ const CourseCard = ({ course, index, onUpdate, onRemove, totalCount, isRetake = 
       {!isRetake ? (
         <>
           {/* Credits */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 w-full sm:w-auto">
             <select
               value={course.credit}
               onChange={(e) => onUpdate({ ...course, credit: parseInt(e.target.value) })}
-              className={`px-4 py-2.5 rounded-xl border-2 text-sm font-semibold transition-all duration-300
+              className={`w-full sm:w-auto px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl border-2 text-xs sm:text-sm font-semibold transition-all duration-300
                          focus:outline-none focus:ring-2 focus:ring-indigo-500/50
                          ${isDark 
                            ? 'bg-slate-800/80 border-slate-700/50 text-white' 
                            : 'bg-white border-slate-200 text-slate-900'}`}
             >
               {[1, 2, 3, 4].map(c => (
-                <option key={c} value={c}>{c} Credit{c !== 1 ? 's' : ''}</option>
+                <option key={c} value={c}>{c}</option>
               ))}
             </select>
           </div>
           
           {/* Grade */}
-          <div className="flex-1 min-w-[200px]">
+          <div className="flex-1 w-full sm:w-auto min-w-0">
             <GradeSelect
               value={course.grade}
               onChange={(val) => onUpdate({ ...course, grade: val })}
@@ -306,9 +308,9 @@ const CourseCard = ({ course, index, onUpdate, onRemove, totalCount, isRetake = 
           
           {/* Assessment Label */}
           {selectedGrade && (
-            <div className="flex-shrink-0">
+            <div className="hidden sm:flex flex-shrink-0">
               <span 
-                className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-bold text-white"
+                className="inline-flex items-center px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs font-bold text-white whitespace-nowrap"
                 style={{ 
                   backgroundColor: selectedGrade.color,
                   boxShadow: `0 2px 8px ${selectedGrade.color}40`
@@ -322,58 +324,61 @@ const CourseCard = ({ course, index, onUpdate, onRemove, totalCount, isRetake = 
       ) : (
         <>
           {/* Credits */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 w-full sm:w-auto">
             <select
               value={course.credit}
               onChange={(e) => onUpdate({ ...course, credit: parseInt(e.target.value) })}
-              className={`px-4 py-2.5 rounded-xl border-2 text-sm font-semibold transition-all duration-300
+              className={`w-full sm:w-auto px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl border-2 text-xs sm:text-sm font-semibold transition-all duration-300
                          focus:outline-none focus:ring-2 focus:ring-indigo-500/50
                          ${isDark 
                            ? 'bg-slate-800/80 border-slate-700/50 text-white' 
                            : 'bg-white border-slate-200 text-slate-900'}`}
             >
               {[1, 2, 3, 4].map(c => (
-                <option key={c} value={c}>{c} Credit{c !== 1 ? 's' : ''}</option>
+                <option key={c} value={c}>{c}</option>
               ))}
             </select>
           </div>
           
-          {/* Previous Grade */}
-          <div className="flex-1 min-w-[140px]">
-            <GradeSelect
-              value={course.prevGrade}
-              onChange={(val) => {
-                const newGradeVal = course.newGrade && parseFloat(course.newGrade) <= parseFloat(val) ? '' : course.newGrade;
-                onUpdate({ ...course, prevGrade: val, newGrade: newGradeVal });
-              }}
-              placeholder="Old Grade"
-              isDark={isDark}
-            />
-          </div>
-          
-          {/* Arrow */}
-          <div className="flex-shrink-0">
-            <ArrowRight className={`${isDark ? 'text-slate-600' : 'text-slate-400'}`} 
-                        size={20} />
-          </div>
-          
-          {/* New Grade */}
-          <div className="flex-1 min-w-[140px]">
-            <GradeSelect
-              value={course.newGrade}
-              onChange={(val) => onUpdate({ ...course, newGrade: val })}
-              placeholder="New Grade"
-              disabled={!course.prevGrade}
-              minGrade={course.prevGrade ? parseFloat(course.prevGrade) : null}
-              isDark={isDark}
-            />
+          {/* Previous Grade & New Grade Grid on Mobile */}
+          <div className="w-full sm:w-auto flex-1 grid grid-cols-2 sm:flex gap-1.5 sm:gap-2 items-center">
+            {/* Previous Grade */}
+            <div className="min-w-0">
+              <GradeSelect
+                value={course.prevGrade}
+                onChange={(val) => {
+                  const newGradeVal = course.newGrade && parseFloat(course.newGrade) <= parseFloat(val) ? '' : course.newGrade;
+                  onUpdate({ ...course, prevGrade: val, newGrade: newGradeVal });
+                }}
+                placeholder="Old"
+                isDark={isDark}
+              />
+            </div>
+            
+            {/* Arrow - hidden on mobile */}
+            <div className="hidden sm:flex flex-shrink-0 items-center justify-center">
+              <ArrowRight className={`${isDark ? 'text-slate-600' : 'text-slate-400'}`} 
+                          size={16} />
+            </div>
+            
+            {/* New Grade */}
+            <div className="min-w-0">
+              <GradeSelect
+                value={course.newGrade}
+                onChange={(val) => onUpdate({ ...course, newGrade: val })}
+                placeholder="New"
+                disabled={!course.prevGrade}
+                minGrade={course.prevGrade ? parseFloat(course.prevGrade) : null}
+                isDark={isDark}
+              />
+            </div>
           </div>
           
           {/* Assessment Label for new grade */}
           {selectedGrade && (
-            <div className="flex-shrink-0">
+            <div className="hidden sm:flex flex-shrink-0">
               <span 
-                className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-bold text-white"
+                className="inline-flex items-center px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs font-bold text-white whitespace-nowrap"
                 style={{ 
                   backgroundColor: selectedGrade.color,
                   boxShadow: `0 2px 8px ${selectedGrade.color}40`
@@ -390,14 +395,14 @@ const CourseCard = ({ course, index, onUpdate, onRemove, totalCount, isRetake = 
       {totalCount > 1 && (
         <button
           onClick={onRemove}
-          className={`flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center
-                     transition-all duration-300 opacity-0 group-hover:opacity-100
+          className={`absolute top-2 right-2 sm:relative sm:top-auto sm:right-auto flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center
+                     transition-all duration-300 opacity-70 sm:opacity-0 sm:group-hover:opacity-100
                      ${isDark 
                        ? 'text-red-400 hover:bg-red-900/30 bg-slate-800/90' 
                        : 'text-red-600 hover:bg-red-50 bg-white/90'}
                      shadow-lg hover:scale-110 hover:rotate-12`}
         >
-          <X size={18} />
+          <X size={16} className="sm:w-5 sm:h-5" />
         </button>
       )}
     </div>
@@ -453,6 +458,36 @@ export default function CGPAVision() {
   const [retakeCourses, setRetakeCourses] = useState([]);
   const [showRetakeSection, setShowRetakeSection] = useState(false);
   const [showGradeScale, setShowGradeScale] = useState(false);
+  const [totalCreditsMemory, setTotalCreditsMemory] = useState({ fresh: 0, retake: 0, combined: 0 });
+  
+  // Load data from localStorage on mount
+  useEffect(() => {
+    const savedData = localStorage.getItem('cgpaVisionData');
+    if (savedData) {
+      try {
+        const data = JSON.parse(savedData);
+        if (data.previousRecord) setPreviousRecord(data.previousRecord);
+        if (data.courses) setCourses(data.courses);
+        if (data.retakeCourses) setRetakeCourses(data.retakeCourses);
+        if (data.isDark) setIsDark(data.isDark);
+        if (data.totalCreditsMemory) setTotalCreditsMemory(data.totalCreditsMemory);
+      } catch (e) {
+        console.error('Failed to load saved data:', e);
+      }
+    }
+  }, []);
+  
+  // Save data to localStorage whenever it changes
+  useEffect(() => {
+    const saveData = {
+      previousRecord,
+      courses,
+      retakeCourses,
+      isDark,
+      totalCreditsMemory
+    };
+    localStorage.setItem('cgpaVisionData', JSON.stringify(saveData));
+  }, [previousRecord, courses, retakeCourses, isDark, totalCreditsMemory]);
   
   const hasPreviousRecord = useMemo(() => {
     const cgpa = parseFloat(previousRecord.cgpa);
@@ -471,19 +506,31 @@ export default function CGPAVision() {
       return !isNaN(prev) && !isNaN(newG) && newG > prev;
     }), [retakeCourses]);
   
+  const retakeWeightedSum = useMemo(() => 
+    validRetakes.reduce((sum, c) => sum + c.credit * parseFloat(c.newGrade), 0), [validRetakes]);
+  
+  const retakeCredits = useMemo(() => 
+    validRetakes.reduce((sum, c) => sum + c.credit, 0), [validRetakes]);
+  
   const retakeWeightedImpact = useMemo(() => 
     validRetakes.reduce((sum, c) => sum + c.credit * (parseFloat(c.newGrade) - parseFloat(c.prevGrade)), 0), [validRetakes]);
   
   const semesterGPA = useMemo(() => {
-    if (freshCredits === 0) return null;
-    return (freshWeightedSum + retakeWeightedImpact) / freshCredits;
-  }, [freshWeightedSum, retakeWeightedImpact, freshCredits]);
+    const totalSemesterCredits = freshCredits + retakeCredits;
+    if (totalSemesterCredits === 0) return null;
+    // Semester GPA includes both fresh courses and retakes attempted this semester
+    const gpa = (freshWeightedSum + retakeWeightedSum) / totalSemesterCredits;
+    // Cap GPA at 4.0
+    return Math.min(gpa, 4.0);
+  }, [freshWeightedSum, freshCredits, retakeWeightedSum, retakeCredits]);
   
   const newCGPA = useMemo(() => {
     if (!hasPreviousRecord || semesterGPA === null) return semesterGPA;
     const prevCGPA = parseFloat(previousRecord.cgpa);
     const prevCredits = parseInt(previousRecord.credits);
-    return (prevCGPA * prevCredits + freshWeightedSum + retakeWeightedImpact) / (prevCredits + freshCredits);
+    const cgpa = (prevCGPA * prevCredits + freshWeightedSum + retakeWeightedImpact) / (prevCredits + freshCredits);
+    // Cap CGPA at 4.0
+    return Math.min(cgpa, 4.0);
   }, [hasPreviousRecord, semesterGPA, previousRecord, freshWeightedSum, retakeWeightedImpact, freshCredits]);
   
   const displayGPA = hasPreviousRecord && newCGPA !== null ? newCGPA : semesterGPA;
@@ -504,15 +551,29 @@ export default function CGPAVision() {
   };
   const updateCourse = (id, updates) => setCourses(courses.map(c => c.id === id ? updates : c));
   const updateRetakeCourse = (id, updates) => setRetakeCourses(retakeCourses.map(c => c.id === id ? updates : c));
-  const resetAll = () => {
+  
+  const saveSemesterCredits = () => {
+    setTotalCreditsMemory(prev => ({
+      fresh: prev.fresh + freshCredits,
+      retake: prev.retake + retakeCredits,
+      combined: prev.combined + freshCredits + retakeCredits
+    }));
+  };
+  
+  const resetSemester = () => {
     setCourses([
       { id: generateId(), credit: 3, grade: '' },
       { id: generateId(), credit: 3, grade: '' },
       { id: generateId(), credit: 3, grade: '' }
     ]);
     setRetakeCourses([]);
-    setPreviousRecord({ cgpa: '', credits: '' });
     setShowRetakeSection(false);
+  };
+  
+  const resetAll = () => {
+    resetSemester();
+    setPreviousRecord({ cgpa: '', credits: '' });
+    setTotalCreditsMemory({ fresh: 0, retake: 0, combined: 0 });
   };
   
   return (
@@ -577,36 +638,197 @@ export default function CGPAVision() {
         {/* Stats Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
           {[
-            { icon: Target, label: 'Courses', value: totalCourseCount, color: 'from-blue-500 to-cyan-500' },
-            { icon: CheckCircle, label: 'Graded', value: `${totalGradedCount} / ${totalCourseCount}`, color: 'from-orange-500 to-red-500' },
-            { icon: Clock, label: 'Credits', value: freshCredits || '—', color: 'from-purple-500 to-pink-500' },
-            { icon: TrendingUp, label: 'CGPA', value: displayGPA !== null ? displayGPA.toFixed(2) : '—', color: 'from-green-500 to-emerald-500' }
+            { icon: Target, label: 'Courses', value: totalCourseCount, color: 'from-blue-500 to-cyan-500', iconBg: 'bg-blue-500', shadowColor: 'shadow-blue-500/40' },
+            { icon: CheckCircle, label: 'Graded', value: `${totalGradedCount} / ${totalCourseCount}`, color: 'from-orange-500 to-red-600', iconBg: 'bg-orange-500', shadowColor: 'shadow-orange-500/40' },
+            { icon: Clock, label: 'Credits', value: freshCredits + retakeCredits || '—', color: 'from-purple-500 to-pink-500', iconBg: 'bg-purple-500', shadowColor: 'shadow-purple-500/40' },
+            { icon: TrendingUp, label: 'CGPA', value: displayGPA !== null ? displayGPA.toFixed(2) : '—', color: 'from-green-500 to-emerald-600', iconBg: 'bg-green-500', shadowColor: 'shadow-green-500/40' }
           ].map((stat, i) => (
             <div key={i} 
                  className={`group relative overflow-hidden rounded-xl sm:rounded-2xl p-4 sm:p-5 border-2 transition-all duration-500
-                            hover:scale-105 hover:shadow-xl cursor-pointer
+                            hover:scale-110 hover:-translate-y-2 cursor-pointer shadow-lg
                             ${isDark 
-                              ? 'bg-slate-800/50 border-slate-700/50' 
-                              : 'bg-white border-slate-200'}`}
-                 style={{ animationDelay: `${i * 100}ms` }}>
-              <div className={`absolute -right-4 -top-4 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br ${stat.color} opacity-10 
-                            group-hover:opacity-20 transition-opacity duration-500 group-hover:scale-150`} />
+                              ? 'bg-slate-800/70 border-slate-700/60 hover:shadow-2xl hover:border-slate-600 hover:bg-slate-800/90' 
+                              : 'bg-gradient-to-br from-white to-slate-50/70 border-slate-200 hover:shadow-2xl hover:border-slate-300 hover:bg-white'}`}>
               
-              <div className="relative">
-                <div className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-2 sm:mb-3
-                              shadow-lg transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300`}>
-                  <stat.icon className="text-white" size={18} />
+              {/* Animated background gradient blob */}
+              <div className={`absolute -right-12 -top-12 w-40 h-40 sm:w-48 sm:h-48 rounded-full bg-gradient-to-br ${stat.color} opacity-0 
+                            group-hover:opacity-15 transition-all duration-700 group-hover:scale-150 blur-3xl`} />
+              
+              {/* Top accent line */}
+              <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${stat.color} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`} />
+              
+              <div className="relative z-10">
+                {/* Icon Container with enhanced animations */}
+                <div className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-3 sm:mb-4
+                              ${stat.shadowColor} shadow-lg transform group-hover:scale-125 group-hover:rotate-12 transition-all duration-300`}>
+                  <stat.icon className="text-white drop-shadow-lg" size={20} strokeWidth={2.5} />
+                  
+                  {/* Icon pulse effect */}
+                  <div className={`absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-br ${stat.color} opacity-30 animate-pulse group-hover:opacity-0 transition-opacity`}
+                       style={{ animationDuration: '2.5s' }} />
                 </div>
-                <div className={`text-xs font-bold mb-1 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                
+                {/* Label with enhanced styling */}
+                <div className={`text-xs sm:text-sm font-bold mb-2 uppercase tracking-wider transition-colors ${
+                  isDark ? 'text-slate-400 group-hover:text-slate-300' : 'text-slate-500 group-hover:text-slate-700'
+                }`}>
                   {stat.label}
                 </div>
-                <div className={`text-2xl sm:text-3xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                
+                {/* Value with gradient text effect */}
+                <div className={`text-2xl sm:text-3xl lg:text-4xl font-black transition-all duration-300 group-hover:scale-110 origin-left ${
+                  isDark ? 'text-white' : `bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`
+                }`}
+                     style={{ textShadow: isDark ? `0 2px 10px rgba(0,0,0,0.3)` : 'none' }}>
                   {stat.value}
                 </div>
+                
+                {/* Bottom animated accent line */}
+                <div className={`mt-3 h-1 rounded-full bg-gradient-to-r ${stat.color} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`} />
               </div>
             </div>
           ))}
         </div>
+        
+        {/* Unified Dashboard - Semester & Total Credits */}
+        <div className={`rounded-xl sm:rounded-2xl p-4 sm:p-6 border-2 mb-6 sm:mb-8 transition-all duration-500 ${
+          isDark 
+            ? 'bg-slate-800/50 border-slate-700/50' 
+            : 'bg-white border-slate-200'
+        }`}>
+          {/* Header */}
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <div className="flex items-center gap-2">
+              <span className="text-xl">📊</span>
+              <h3 className={`text-sm sm:text-base font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                Academic Dashboard
+              </h3>
+            </div>
+            <span className={`text-xs px-3 py-1 rounded-full font-bold ${isDark ? 'bg-orange-900/30 text-orange-400' : 'bg-orange-100 text-orange-700'}`}>
+              Total: {freshCredits + retakeCredits} credits
+            </span>
+          </div>
+          
+          {/* Main Grid - Semester Metrics & GPA */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+            {/* Fresh Courses */}
+            <div className={`p-3 rounded-lg transition-all duration-500 transform hover:scale-105 ${isDark ? 'bg-slate-700/50' : 'bg-blue-50 border border-blue-200'}`}>
+              <div className="text-xs font-bold mb-2 text-blue-600">🎓 Fresh</div>
+              <div className={`text-2xl font-black ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>
+                {freshCredits}
+              </div>
+            </div>
+            
+            {/* Retake Courses */}
+            <div className={`p-3 rounded-lg transition-all duration-500 transform hover:scale-105 ${isDark ? 'bg-slate-700/50' : 'bg-amber-50 border border-amber-200'}`}>
+              <div className="text-xs font-bold mb-2 text-amber-600">🔄 Retake</div>
+              <div className={`text-2xl font-black ${isDark ? 'text-amber-400' : 'text-amber-600'}`}>
+                {retakeCredits}
+              </div>
+            </div>
+            
+            {/* Total This Semester */}
+            <div className={`p-3 rounded-lg transition-all duration-500 transform hover:scale-105 ${isDark ? 'bg-slate-700/50' : 'bg-emerald-50 border border-emerald-200'}`}>
+              <div className="text-xs font-bold mb-2 text-emerald-600">✨ Total</div>
+              <div className={`text-2xl font-black ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`}>
+                {freshCredits + retakeCredits}
+              </div>
+            </div>
+            
+            {/* Semester GPA */}
+            {semesterGPA !== null && (
+              <div className={`p-3 rounded-lg transition-all duration-500 transform hover:scale-105 ${isDark ? 'bg-slate-700/50' : 'bg-purple-50 border border-purple-200'}`}>
+                <div className="text-xs font-bold mb-2 text-purple-600">📈 GPA</div>
+                <div className={`text-2xl font-black animate-pulse ${
+                  semesterGPA >= 3.5 ? 'text-green-500' : semesterGPA >= 3.0 ? 'text-blue-500' : 'text-yellow-500'
+                }`}
+                     style={{ animationDuration: '1s' }}>
+                  {semesterGPA.toFixed(2)}
+                </div>
+              </div>
+            )}
+          </div>
+          
+          {/* Bottom Row - Quality & Total Credits All Time */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {/* Grade Quality */}
+            {semesterGPA !== null && (
+              <div className={`p-3 rounded-lg ${isDark ? 'bg-slate-700/50' : 'bg-slate-50'}`}>
+                <div className="text-xs font-bold mb-2 text-slate-600">Grade Quality</div>
+                <div className={`text-lg font-black ${
+                  semesterGPA >= 3.5 ? 'text-green-600' : semesterGPA >= 3.0 ? 'text-blue-600' : semesterGPA >= 2.0 ? 'text-yellow-600' : 'text-red-600'
+                }`}>
+                  {semesterGPA >= 3.5 ? '🌟 Excellent' : semesterGPA >= 3.0 ? '👏 Great' : semesterGPA >= 2.0 ? '📈 Good' : '⚠️ Needs Work'}
+                </div>
+              </div>
+            )}
+            
+            {/* Total Credits All Time */}
+            {hasPreviousRecord && (
+              <div className={`p-3 rounded-lg bg-gradient-to-r ${isDark ? 'from-purple-900/40 to-indigo-900/40 border border-purple-800/50' : 'from-purple-100 to-indigo-100 border-2 border-purple-300'}`}>
+                <div className="text-xs font-bold mb-2 text-gray-600">👑 All Time Total</div>
+                <div className={`text-2xl font-black transform transition-all animate-pulse ${isDark ? 'text-purple-400' : 'text-purple-700'}`}
+                     style={{ animationDuration: '1.5s' }}>
+                  {(parseInt(previousRecord.credits) || 0) + freshCredits}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+        
+        {/* GPA Achievement & Insights */}
+        {semesterGPA !== null && (
+          <div className={`rounded-xl sm:rounded-2xl p-4 sm:p-6 border-2 mb-6 sm:mb-8 transition-all duration-500 ${
+            isDark 
+              ? 'bg-slate-800/50 border-slate-700/50' 
+              : 'bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-200'
+          }`}>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-2xl animate-bounce" style={{ animationDuration: '1.5s' }}>🎯</span>
+              <h3 className={`text-sm sm:text-base font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                Semester Performance Insights
+              </h3>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <div className={`p-4 rounded-xl ${isDark ? 'bg-slate-700/50' : 'bg-white'}`}>
+                <div className="flex justify-between items-center mb-2">
+                  <span className={`text-xs font-bold ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                    Semester GPA
+                  </span>
+                  <span className={`text-xl sm:text-2xl font-black animate-pulse ${
+                    semesterGPA >= 3.5 ? 'text-green-500' : semesterGPA >= 3.0 ? 'text-blue-500' : 'text-yellow-500'
+                  }`}
+                       style={{ animationDuration: '1s' }}>
+                    {semesterGPA.toFixed(2)}
+                  </span>
+                </div>
+                <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
+                  <div className={`h-full rounded-full transition-all duration-700 ${
+                    semesterGPA >= 3.5 ? 'bg-gradient-to-r from-green-400 to-green-600' : 
+                    semesterGPA >= 3.0 ? 'bg-gradient-to-r from-blue-400 to-blue-600' : 
+                    'bg-gradient-to-r from-yellow-400 to-yellow-600'
+                  }`}
+                       style={{ width: `${(semesterGPA / 4.0) * 100}%` }} />
+                </div>
+              </div>
+              
+              <div className={`p-4 rounded-xl ${isDark ? 'bg-slate-700/50' : 'bg-white'}`}>
+                <div className="flex justify-between items-center mb-2">
+                  <span className={`text-xs font-bold ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                    Grade Quality
+                  </span>
+                  <span className={`text-lg sm:text-xl font-black ${
+                    semesterGPA >= 3.5 ? 'text-green-500' : semesterGPA >= 3.0 ? 'text-blue-500' : semesterGPA >= 2.0 ? 'text-yellow-500' : 'text-red-500'
+                  }`}>
+                    {semesterGPA >= 3.5 ? '🌟 Excellent' : semesterGPA >= 3.0 ? '👏 Great' : semesterGPA >= 2.0 ? '📈 Good' : '⚠️ Needs Work'}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6">
           {/* Left Column */}
@@ -962,7 +1184,7 @@ export default function CGPAVision() {
                         Semester Credits
                       </span>
                       <span className={`text-lg sm:text-xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                        {freshCredits}
+                        {freshCredits + retakeCredits}
                       </span>
                     </div>
                   </div>
@@ -1035,11 +1257,24 @@ export default function CGPAVision() {
         isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'
       }`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <p className={`text-xs sm:text-sm font-medium mb-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+          <p className={`text-xs sm:text-sm font-medium mb-3 sm:mb-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
             Track your academic progress with real-time calculations • Not an official university tool
           </p>
-          <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>
-            © 2026 <span className="font-bold text-indigo-500">Sourav Biswas</span> • All rights reserved
+          <p className={`text-xs sm:text-sm ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>
+            © 2026 
+            <a 
+              href="https://github.com/souravbiswas35" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={`font-bold ml-1 transition-colors duration-300 ${
+                isDark 
+                  ? 'text-indigo-400 hover:text-indigo-300' 
+                  : 'text-indigo-500 hover:text-indigo-600'
+              }`}
+            >
+              Sourav Biswas
+            </a>
+            • All rights reserved
           </p>
         </div>
       </footer>

@@ -1,3 +1,4 @@
+/* stylelint-disable at-rule-no-unknown */
 /* Import Google Fonts - must be first */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
@@ -5,6 +6,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* stylelint-enable at-rule-no-unknown */
 
 
 /* Base Styles */
@@ -14,9 +16,11 @@
   }
   
   body {
+    /* stylelint-disable-next-line at-rule-no-unknown */
     @apply font-sans antialiased;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
+  /* stylelint-enable at-rule-no-unknown */
   
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -66,6 +70,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 input[type="number"] {
+  appearance: textfield;
   -moz-appearance: textfield;
 }
 
@@ -141,6 +146,66 @@ input[type="number"] {
   100% {
     background-position: 1000px 0;
   }
+}
+
+/* Stats Card Animations */
+@keyframes statsCardEntry {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes statsPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes statsGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@keyframes slideLineIn {
+  0% {
+    width: 0%;
+    opacity: 0;
+  }
+  100% {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+/* Tailwind utilities for stats cards */
+.stats-card-animate {
+  animation: statsCardEntry 0.6s ease-out forwards;
+}
+
+.stats-value-pulse {
+  animation: statsPulse 2s ease-in-out infinite;
+}
+
+.stats-glow {
+  animation: statsGlow 2s ease-in-out infinite;
+}
+
+.stats-line {
+  animation: slideLineIn 0.5s ease-out forwards;
 }
 
 @keyframes float {
