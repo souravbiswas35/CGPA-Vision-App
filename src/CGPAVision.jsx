@@ -50,9 +50,12 @@ const GradeDistributionBar = ({ courses, retakeCourses, isDark }) => {
       isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'
     }`}>
       <div className="flex items-center justify-between mb-3">
-        <h3 className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
-          Grade Distribution
-        </h3>
+        <div className="flex items-center gap-2">
+          <span className="text-lg animate-pulse" style={{ animationDuration: '2s' }}>🎆</span>
+          <h3 className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            Grade Distribution
+          </h3>
+        </div>
         <div className="flex items-center gap-6">
           {Object.entries(gradeCount).filter(([_, count]) => count > 0).map(([letter, count]) => {
             const grade = GRADE_SCALE.find(g => g.letter === letter);
@@ -589,14 +592,12 @@ export default function CGPAVision() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl blur-lg opacity-40 
-                              group-hover:opacity-60 transition-opacity animate-pulse" style={{ animationDuration: '3s' }} />
-                <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 
-                              flex items-center justify-center shadow-xl shadow-indigo-500/30
-                              transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                  <GraduationCap className="text-white" size={28} />
-                </div>
+              <div className="relative group w-12 h-12 sm:w-14 sm:h-14 rounded-2xl border-2 border-indigo-500 bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center animate-pulse" style={{ animationDuration: '2s' }}>
+                <img 
+                  src="/Hat.png" 
+                  alt="Hat Logo"
+                  className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 object-contain"
+                />
               </div>
               
               <div>
@@ -699,7 +700,7 @@ export default function CGPAVision() {
           {/* Header */}
           <div className="flex items-center justify-between gap-3 mb-4">
             <div className="flex items-center gap-2">
-              <span className="text-xl">📊</span>
+              <span className="text-xl animate-bounce" style={{ animationDuration: '2s' }}>📊</span>
               <h3 className={`text-sm sm:text-base font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
                 Academic Dashboard
               </h3>
@@ -713,7 +714,7 @@ export default function CGPAVision() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
             {/* Fresh Courses */}
             <div className={`p-3 rounded-lg transition-all duration-500 transform hover:scale-105 ${isDark ? 'bg-slate-700/50' : 'bg-blue-50 border border-blue-200'}`}>
-              <div className="text-xs font-bold mb-2 text-blue-600">🎓 Fresh</div>
+              <div className="text-xs font-bold mb-2 text-blue-600"><span className="inline-block">🎓</span> Fresh Credits</div>
               <div className={`text-2xl font-black ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>
                 {freshCredits}
               </div>
@@ -721,7 +722,7 @@ export default function CGPAVision() {
             
             {/* Retake Courses */}
             <div className={`p-3 rounded-lg transition-all duration-500 transform hover:scale-105 ${isDark ? 'bg-slate-700/50' : 'bg-amber-50 border border-amber-200'}`}>
-              <div className="text-xs font-bold mb-2 text-amber-600">🔄 Retake</div>
+              <div className="text-xs font-bold mb-2 text-amber-600"><span className="inline-block">🔄</span> Retake Credits</div>
               <div className={`text-2xl font-black ${isDark ? 'text-amber-400' : 'text-amber-600'}`}>
                 {retakeCredits}
               </div>
@@ -729,7 +730,7 @@ export default function CGPAVision() {
             
             {/* Total This Semester */}
             <div className={`p-3 rounded-lg transition-all duration-500 transform hover:scale-105 ${isDark ? 'bg-slate-700/50' : 'bg-emerald-50 border border-emerald-200'}`}>
-              <div className="text-xs font-bold mb-2 text-emerald-600">✨ Total</div>
+              <div className="text-xs font-bold mb-2 text-emerald-600"><span className="inline-block">✨</span> Total Credits</div>
               <div className={`text-2xl font-black ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`}>
                 {freshCredits + retakeCredits}
               </div>
@@ -738,7 +739,7 @@ export default function CGPAVision() {
             {/* Semester GPA */}
             {semesterGPA !== null && (
               <div className={`p-3 rounded-lg transition-all duration-500 transform hover:scale-105 ${isDark ? 'bg-slate-700/50' : 'bg-purple-50 border border-purple-200'}`}>
-                <div className="text-xs font-bold mb-2 text-purple-600">📈 GPA</div>
+                <div className="text-xs font-bold mb-2 text-purple-600"><span className="inline-block">📈</span> Semester GPA</div>
                 <div className={`text-2xl font-black animate-pulse ${
                   semesterGPA >= 3.5 ? 'text-green-500' : semesterGPA >= 3.0 ? 'text-blue-500' : 'text-yellow-500'
                 }`}
@@ -766,7 +767,7 @@ export default function CGPAVision() {
             {/* Total Credits All Time */}
             {hasPreviousRecord && (
               <div className={`p-3 rounded-lg bg-gradient-to-r ${isDark ? 'from-purple-900/40 to-indigo-900/40 border border-purple-800/50' : 'from-purple-100 to-indigo-100 border-2 border-purple-300'}`}>
-                <div className="text-xs font-bold mb-2 text-gray-600">👑 All Time Total</div>
+                <div className="text-xs font-bold mb-2 text-gray-600">👑 All Time Total Credits</div>
                 <div className={`text-2xl font-black transform transition-all animate-pulse ${isDark ? 'text-purple-400' : 'text-purple-700'}`}
                      style={{ animationDuration: '1.5s' }}>
                   {(parseInt(previousRecord.credits) || 0) + freshCredits}
@@ -776,58 +777,7 @@ export default function CGPAVision() {
           </div>
         </div>
         
-        {/* GPA Achievement & Insights */}
-        {semesterGPA !== null && (
-          <div className={`rounded-xl sm:rounded-2xl p-4 sm:p-6 border-2 mb-6 sm:mb-8 transition-all duration-500 ${
-            isDark 
-              ? 'bg-slate-800/50 border-slate-700/50' 
-              : 'bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-200'
-          }`}>
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-2xl animate-bounce" style={{ animationDuration: '1.5s' }}>🎯</span>
-              <h3 className={`text-sm sm:text-base font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                Semester Performance Insights
-              </h3>
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-              <div className={`p-4 rounded-xl ${isDark ? 'bg-slate-700/50' : 'bg-white'}`}>
-                <div className="flex justify-between items-center mb-2">
-                  <span className={`text-xs font-bold ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-                    Semester GPA
-                  </span>
-                  <span className={`text-xl sm:text-2xl font-black animate-pulse ${
-                    semesterGPA >= 3.5 ? 'text-green-500' : semesterGPA >= 3.0 ? 'text-blue-500' : 'text-yellow-500'
-                  }`}
-                       style={{ animationDuration: '1s' }}>
-                    {semesterGPA.toFixed(2)}
-                  </span>
-                </div>
-                <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
-                  <div className={`h-full rounded-full transition-all duration-700 ${
-                    semesterGPA >= 3.5 ? 'bg-gradient-to-r from-green-400 to-green-600' : 
-                    semesterGPA >= 3.0 ? 'bg-gradient-to-r from-blue-400 to-blue-600' : 
-                    'bg-gradient-to-r from-yellow-400 to-yellow-600'
-                  }`}
-                       style={{ width: `${(semesterGPA / 4.0) * 100}%` }} />
-                </div>
-              </div>
-              
-              <div className={`p-4 rounded-xl ${isDark ? 'bg-slate-700/50' : 'bg-white'}`}>
-                <div className="flex justify-between items-center mb-2">
-                  <span className={`text-xs font-bold ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-                    Grade Quality
-                  </span>
-                  <span className={`text-lg sm:text-xl font-black ${
-                    semesterGPA >= 3.5 ? 'text-green-500' : semesterGPA >= 3.0 ? 'text-blue-500' : semesterGPA >= 2.0 ? 'text-yellow-500' : 'text-red-500'
-                  }`}>
-                    {semesterGPA >= 3.5 ? '🌟 Excellent' : semesterGPA >= 3.0 ? '👏 Great' : semesterGPA >= 2.0 ? '📈 Good' : '⚠️ Needs Work'}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+
 
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6">
@@ -1077,37 +1027,39 @@ export default function CGPAVision() {
                   <div className="overflow-x-auto -mx-2 px-2">
                     <table className="w-full text-left text-xs sm:text-sm">
                       <thead>
-                        <tr className={`border-b-2 ${isDark ? 'border-slate-700' : 'border-slate-200'}`}>
-                          <th className={`pb-3 pr-4 font-bold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Grade</th>
-                          <th className={`pb-3 pr-4 font-bold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Points</th>
-                          <th className={`pb-3 pr-4 font-bold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Marks %</th>
-                          <th className={`pb-3 font-bold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Assessment</th>
+                        <tr className={`border-b-2 ${isDark ? 'bg-slate-700/50 border-slate-600' : 'bg-gradient-to-r from-indigo-100 to-purple-100 border-indigo-300'}`}>
+                          <th className={`pb-3 pr-4 font-bold ${isDark ? 'text-slate-200' : 'text-indigo-900'}`}>Grade</th>
+                          <th className={`pb-3 pr-4 font-bold ${isDark ? 'text-slate-200' : 'text-indigo-900'}`}>Points</th>
+                          <th className={`pb-3 pr-4 font-bold ${isDark ? 'text-slate-200' : 'text-indigo-900'}`}>Marks %</th>
+                          <th className={`pb-3 font-bold ${isDark ? 'text-slate-200' : 'text-indigo-900'}`}>Assessment</th>
                         </tr>
                       </thead>
                       <tbody>
                         {GRADE_SCALE.map((grade) => (
                           <tr key={grade.letter} 
-                              className={`border-b transition-colors ${
-                                isDark ? 'border-slate-800 hover:bg-slate-800/50' : 'border-slate-100 hover:bg-slate-50'
-                              }`}>
+                              className="border-b transition-all hover:shadow-md"
+                              style={{
+                                backgroundColor: isDark ? `${grade.color}15` : `${grade.color}20`,
+                                borderColor: `${grade.color}40`
+                              }}>
                             <td className="py-3 pr-4">
                               <span 
-                                className="inline-flex items-center justify-center px-2.5 py-1 rounded-lg font-bold text-sm text-white shadow-sm"
+                                className="inline-flex items-center justify-center px-2.5 py-1 rounded-lg font-bold text-sm text-white shadow-md"
                                 style={{ 
                                   backgroundColor: grade.color,
-                                  boxShadow: `0 2px 8px ${grade.color}40`
+                                  boxShadow: `0 4px 12px ${grade.color}50`
                                 }}
                               >
                                 {grade.letter}
                               </span>
                             </td>
-                            <td className={`py-3 pr-4 font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                            <td className="py-3 pr-4 font-semibold" style={{ color: grade.color }}>
                               {grade.point.toFixed(2)}
                             </td>
-                            <td className={`py-3 pr-4 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                            <td className="py-3 pr-4 font-medium" style={{ color: grade.color }}>
                               {grade.range}
                             </td>
-                            <td className={`py-3 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                            <td className="py-3 font-medium" style={{ color: grade.color }}>
                               {grade.assessment}
                             </td>
                           </tr>
